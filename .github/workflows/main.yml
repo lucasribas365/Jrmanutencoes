@@ -26,4 +26,5 @@ jobs:
             git reset --hard origin
             git pull
           fi
+          chown -R www-data:www-data ${PROJECT_DIR}
           systemctl restart nginx
