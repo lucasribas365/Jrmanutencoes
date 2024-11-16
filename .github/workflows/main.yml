@@ -1,0 +1,29 @@
+name: remote ssh command
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          export PROJECT_DIR="/root/Jrmanutencoes"
+          if [ ! -d ${PROJECT_DIR} ]; then
+            mkdir ${PROJECT_DIR}
+            cd ${PROJECT_DIR}
+            git clone https://github.com/${{ github.repository }} ${PROJECT_DIR}
+          else
+            cd ${PROJECT_DIR}
+            git reset --hard origin
+            git pull
+          fi
+          systemctl restart nginx
