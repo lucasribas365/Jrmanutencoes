@@ -3136,3 +3136,20 @@ input, select, textarea {
 					}
 
 	}
+.wa-app{
+	display: none !important;
+}
+.wa-web{
+	display: none !important;
+}
+
+		@media (hover: hover) {
+			.wa-web {
+				display: block !important;
+			}
+		}
+		@media (hover: none) {
+			.wa-app {
+				display: block !important;
+			}
+		}
